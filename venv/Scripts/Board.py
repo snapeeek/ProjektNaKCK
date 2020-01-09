@@ -25,8 +25,25 @@ class Board:
                 break
         self.uncheckall()
         print("Wcisniety przycisk:", chr(ord('A') + tempint[0]), tempint[1])
+        self.updateboard([0,1,2,0,0,0,1,2,2,1,0,0,0,0,1,2,0,0,0,1,0,2,1,2,2,0,1,1,1,0,3,4])
 
-
+    def updateboard(self, tablica):
+        counter = 0
+        if len(tablica) != 32:
+            print("Tablica jest nie teges")
+        else:
+            for i in tablica:
+                if (i == 0):
+                    self.goodbuttons[counter].setStyleSheet("background-color: gray")
+                elif (i == 1):
+                    self.goodbuttons[counter].setStyleSheet("background-image: url(białyzwykły50.jpg)")
+                elif (i == 2):
+                    self.goodbuttons[counter].setStyleSheet("background-image: url(czarnyzwykły50.jpg)")
+                elif (i == 3):
+                    self.goodbuttons[counter].setStyleSheet("background-image: url(białadama50.jpg)")
+                elif (i == 4):
+                    self.goodbuttons[counter].setStyleSheet("background-image: url(czarnadama50.jpg)")
+                counter = counter + 1
 
     def initUI(self):
         self.mainwidget = QWidget()
@@ -35,6 +52,7 @@ class Board:
         self.grid.setSpacing(0)
         self.mainwidget.setLayout(self.grid)
         self.grupy = []
+        self.goodbuttons = []
         for i in range (0,8):
             self.grupy.append(QButtonGroup())
             self.grupy[i].setExclusive(True)
@@ -44,10 +62,13 @@ class Board:
                 button.setCheckable(True)
                 if ((i+j)%2 == 1 and i >= 0 and i < 3):
                     button.setStyleSheet("background-image: url(białyzwykły50.jpg)")
+                    self.goodbuttons.append(button)
                 elif ((i + j) % 2 == 1 and i >= 5 and i < 9):
                     button.setStyleSheet("background-image: url(czarnyzwykły50.jpg)")
+                    self.goodbuttons.append(button)
                 elif ((i + j) % 2 == 1):
                     button.setStyleSheet("background-color: gray")
+                    self.goodbuttons.append(button)
                 else:
                     button.setStyleSheet("background-color: white")
                     button.setEnabled(False)
