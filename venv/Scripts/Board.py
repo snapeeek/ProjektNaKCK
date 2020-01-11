@@ -2,7 +2,14 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from MyPushButton import MyPushButton
+from enum import Enum
 
+class Typ(Enum):
+    PUSTE = 0
+    BIALE = 1
+    CZARNE = 2
+    BIALAD = 3
+    CZARNAD = 4
 
 class Board:
     def __init__(self):
@@ -37,26 +44,19 @@ class Board:
             print("Tablica jest nie teges")
         else:
             for i in tablica:
-                if (i == 0):
+                if (i == Typ.PUSTE):
                     self.goodbuttons[counter].setStyleSheet("background-color: gray")
-                elif (i == 1):
+                elif (i == Typ.BIALE):
                     self.goodbuttons[counter].setStyleSheet("background-image: url(białyzwykły50.jpg)")
-                elif (i == 2):
+                elif (i == Typ.CZARNE):
                     self.goodbuttons[counter].setStyleSheet("background-image: url(czarnyzwykły50.jpg)")
-                elif (i == 3):
+                elif (i == Typ.BIALAD):
                     self.goodbuttons[counter].setStyleSheet("background-image: url(białadama50.jpg)")
-                elif (i == 4):
+                elif (i == Typ.CZARNAD):
                     self.goodbuttons[counter].setStyleSheet("background-image: url(czarnadama50.jpg)")
                 counter = counter + 1
 
-    def initUI(self):
-        self.mainwidget = QWidget()
-        self.mainwidget.setFixedSize(600,600)
-        self.grid = QGridLayout()
-        self.grid.setSpacing(0)
-        self.mainwidget.setLayout(self.grid)
-        self.grupy = []
-        self.goodbuttons = []
+    def startingBoard(self):
         for i in range (0,8):
             self.grupy.append(QButtonGroup())
             self.grupy[i].setExclusive(True)
@@ -82,6 +82,16 @@ class Board:
                 button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 self.grupy[i].addButton(button, j+1)
                 self.grid.addWidget(button, i, j)
+
+    def initUI(self):
+        self.mainwidget = QWidget()
+        self.mainwidget.setFixedSize(600,600)
+        self.grid = QGridLayout()
+        self.grid.setSpacing(0)
+        self.mainwidget.setLayout(self.grid)
+        self.grupy = []
+        self.goodbuttons = []
+        self.startingBoard()
 
         #print(self.grupy[1].button(1).getKind())
         self.mainwidget.show()
