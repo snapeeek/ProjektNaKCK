@@ -1,12 +1,15 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from MyPushButton import MyPushButton
+
 
 class Board:
     def __init__(self):
         super(Board, self).__init__()
         self.isPieceSelected = False
         self.board = []
+        self.tempbutton = None
         self.initUI()
 
     def uncheckall(self):
@@ -19,13 +22,13 @@ class Board:
 
     def buttonpressed(self):
         for i in range (0,8):
-            tempbutton = self.grupy[i].checkedButton()
-            tempint = [i, self.grupy[i].checkedId()]
-            if tempbutton is not None:
+            self.tempbutton = self.grupy[i].checkedButton()
+            if self.tempbutton is not None:
                 break
         self.uncheckall()
-        print("Wcisniety przycisk:", chr(ord('A') + tempint[0]), tempint[1])
-        self.updateboard([0,1,2,0,0,0,1,2,2,1,0,0,0,0,1,2,0,0,0,1,0,2,1,2,2,0,1,1,1,0,3,4])
+        print(self.tempbutton.getKind())
+        #print("Wcisniety przycisk:", chr(ord('A') + tempint[0]), tempint[1])
+        #self.updateboard([0,1,2,0,0,0,1,2,2,1,0,0,0,0,1,2,0,0,0,1,0,2,1,2,2,0,1,1,1,0,3,4])
 
     def updateboard(self, tablica):
         counter = 0
@@ -58,13 +61,16 @@ class Board:
             self.grupy[i].setExclusive(True)
         for i in range(0,8):
             for j in range(0,8):
-                button = QPushButton()
+                button = MyPushButton(0)
+                button2 = QPushButton()
                 button.setCheckable(True)
                 if ((i+j)%2 == 1 and i >= 0 and i < 3):
                     button.setStyleSheet("background-image: url(białyzwykły50.jpg)")
+                    button.setKind(1)
                     self.goodbuttons.append(button)
                 elif ((i + j) % 2 == 1 and i >= 5 and i < 9):
                     button.setStyleSheet("background-image: url(czarnyzwykły50.jpg)")
+                    button.setKind(2)
                     self.goodbuttons.append(button)
                 elif ((i + j) % 2 == 1):
                     button.setStyleSheet("background-color: gray")
@@ -75,6 +81,8 @@ class Board:
                 button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
                 self.grupy[i].addButton(button, j+1)
                 self.grid.addWidget(button, i, j)
+
+        #print(self.grupy[1].button(1).getKind())
         self.mainwidget.show()
 
         self.grupy[0].buttonClicked.connect(self.buttonpressed)
