@@ -14,9 +14,12 @@
 /venv/Scripts/pip3.7.exe
 /venv/Scripts/pip3-script.py
 /venv/Scripts/pip-script.py
+/venv/Scripts/pip3.7-script.py
+/venv/Scripts/pip3.exe
 /venv/Scripts/pylupdate5.exe
 /venv/Scripts/pyrcc5.exe
 /venv/Scripts/python.exe
 /venv/Scripts/pythonw.exe
 /venv/Scripts/pyuic5.exe
 /venv/pyvenv.cfg
+/venv/__pychache__/**
