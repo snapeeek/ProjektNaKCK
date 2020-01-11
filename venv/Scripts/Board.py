@@ -23,11 +23,12 @@ class Board:
     def buttonpressed(self):
         for i in range (0,8):
             self.tempbutton = self.grupy[i].checkedButton()
+            tempint = [i, self.grupy[i].checkedId()]
             if self.tempbutton is not None:
                 break
         self.uncheckall()
         print(self.tempbutton.getKind())
-        #print("Wcisniety przycisk:", chr(ord('A') + tempint[0]), tempint[1])
+        print("Wcisniety przycisk:", chr(ord('A') + tempint[0]), tempint[1])
         #self.updateboard([0,1,2,0,0,0,1,2,2,1,0,0,0,0,1,2,0,0,0,1,0,2,1,2,2,0,1,1,1,0,3,4])
 
     def updateboard(self, tablica):
